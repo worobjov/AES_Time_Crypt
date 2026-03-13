@@ -1079,6 +1079,16 @@
       }
 
       function setFile(f) {
+        // For decrypt dropzones, only allow .tlp vault files
+        if (typeof opt !== 'undefined' && opt && opt.type === 'dec') {
+          var name = (f && typeof f.name === 'string') ? f.name.toLowerCase() : '';
+          if (!name.endsWith('.tlp')) {
+            return showError(
+              'Invalid file type',
+              'Please select a .tlp vault file to decrypt.'
+            );
+          }
+        }
         if (f.size > MAX_BYTES) {
           return showError('File too large', 'Max 100 MB — yours is ' + fmtSize(f.size));
         }
