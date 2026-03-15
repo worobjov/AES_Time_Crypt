@@ -324,12 +324,243 @@
   footer a { color: var(--yellow); text-decoration: none; }
   footer a:hover { text-decoration: underline; }
 
+  /* ── Dropzone ─────────────────────────────────────────────── */
+  .dz-area {
+    border: 3px dashed #ccc;
+    padding: 36px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color .15s, background .15s, box-shadow .15s;
+    position: relative;
+    min-height: 160px;
+  }
+  .dz-area:hover { border-color: #999; }
+  .dz-area.dragover-enc { border-color: var(--yellow); border-style: solid; background: #fffde7; box-shadow: var(--shadow); }
+  .dz-area.dragover-dec { border-color: var(--green); border-style: solid; background: #e8f5e9; box-shadow: var(--shadow); }
+  .dz-area input[type="file"] { display: none; }
+
+  [data-dz-state] {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .dz-icon { font-size: 36px; line-height: 1; margin-bottom: 10px; }
+  .dz-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+  .dz-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: #999;
+    text-transform: uppercase;
+  }
+
+  /* Dropzone: file info */
+  .dz-file {
+    width: 100%;
+    border: var(--border);
+    background: var(--black);
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+    margin-bottom: 14px;
+  }
+  .dz-file-icon { font-size: 22px; flex-shrink: 0; }
+  .dz-file-name {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--white);
+    word-break: break-all;
+    line-height: 1.3;
+  }
+  .dz-file-size {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: #666;
+    margin-top: 2px;
+  }
+
+  /* Dropzone: duration selector */
+  .dz-dur-wrap { width: 100%; margin-bottom: 16px; }
+  .dz-dur-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+  .dz-dur-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 5px;
+  }
+  .dz-dur {
+    border: 2px solid var(--black);
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    text-align: center;
+    padding: 5px 2px;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--black);
+    transition: transform .1s, box-shadow .1s, background .1s;
+    background: var(--white);
+    user-select: none;
+  }
+  .dz-dur:hover { transform: translate(-1px,-1px); box-shadow: 3px 3px 0 var(--black); }
+  .dz-dur.active { background: var(--yellow); }
+
+  /* Dropzone: action button */
+  .dz-btn {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 3px;
+    padding: 12px 36px;
+    border: var(--border);
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: transform .1s, box-shadow .1s;
+  }
+  .dz-btn:hover { transform: translate(-2px,-2px); box-shadow: var(--shadow-lg); }
+  .dz-btn:active { transform: translate(2px,2px); box-shadow: 2px 2px 0 var(--black); }
+  .dz-btn-enc { background: var(--yellow); color: var(--black); }
+  .dz-btn-dec { background: var(--green); color: var(--black); }
+  .dz-btn:disabled { opacity: .5; cursor: not-allowed; transform: none !important; box-shadow: var(--shadow) !important; }
+
+  /* Dropzone: loading bar */
+  .dz-loader {
+    width: 100%;
+    height: 4px;
+    background: #e0e0d0;
+    border: 2px solid var(--black);
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .dz-loader-bar {
+    height: 100%;
+    width: 30%;
+    animation: dz-slide .7s ease-in-out infinite alternate;
+  }
+  .dz-loader-enc { background: var(--yellow); }
+  .dz-loader-dec { background: var(--green); }
+  @keyframes dz-slide { from { margin-left: 0; } to { margin-left: 70%; } }
+
+  /* Dropzone: done state */
+  .dz-done-badge {
+    width: 48px; height: 48px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    margin-bottom: 10px;
+    border: var(--border);
+    box-shadow: 3px 3px 0 var(--black);
+  }
+  .dz-done-badge-enc { background: var(--yellow); }
+  .dz-done-badge-dec { background: var(--green); }
+  .dz-done-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+  .dz-done-detail {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: #555;
+    line-height: 1.7;
+  }
+
+  /* Dropzone: error state */
+  .dz-err-badge {
+    width: 48px; height: 48px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--red);
+    color: var(--white);
+    font-size: 24px;
+    font-weight: 700;
+    border: var(--border);
+    box-shadow: 3px 3px 0 var(--black);
+    margin-bottom: 10px;
+  }
+  .dz-err-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--red);
+    margin-bottom: 4px;
+  }
+  .dz-err-detail {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: #555;
+    line-height: 1.5;
+  }
+
+  /* Dropzone: locked state (decrypt) */
+  .dz-locked-icon { font-size: 36px; margin-bottom: 8px; }
+  .dz-locked-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+  .dz-locked-msg {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  .dz-locked-time {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 2px;
+    color: var(--yellow);
+    background: var(--black);
+    display: inline-block;
+    padding: 6px 18px;
+    border: var(--border);
+    box-shadow: var(--shadow);
+  }
+  .dz-locked-date {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: #666;
+    margin-top: 8px;
+  }
+
+  /* Dropzone: reset button */
+  .dz-reset {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: none;
+    border: 2px solid var(--black);
+    padding: 5px 12px;
+    cursor: pointer;
+    margin-top: 14px;
+    transition: all .1s;
+  }
+  .dz-reset:hover { background: var(--black); color: var(--white); }
+
   /* ── Responsive ──────────────────────────────────────────── */
   @media (max-width: 600px) {
     header { padding: 0 16px; }
     .tab { padding: 12px 20px; font-size: 15px; letter-spacing: 2px; }
     main { padding: 28px 16px 60px; }
     footer { flex-direction: column; gap: 8px; text-align: center; }
+    .dz-area { padding: 24px 16px; min-height: 120px; }
+    .dz-dur-grid { grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); }
   }
 </style>
 </head>
@@ -372,6 +603,76 @@
     <div class="banner-icon">⏳</div>
     <p>Files encrypted here are <strong>sealed by time</strong>. The decryption key is held on the server and released <strong>only after the unlock date</strong> you specify. No bypass. No override.</p>
   </div>
+
+  <!-- DRAG & DROP -->
+  <div class="tag tag-enc">web — drag & drop</div>
+  <h2>Encrypt in browser</h2>
+  <p style="margin-bottom:14px">Drop any file. Pick a lock duration. Get an encrypted <strong>.tlp</strong> file back.</p>
+
+  <div class="card" id="dz-enc-card">
+    <div class="card-hd"><div class="dot dot-enc"></div>drop file to encrypt</div>
+    <div class="card-bd">
+      <div class="dz-area dz-area-enc">
+        <input type="file">
+
+        <div data-dz-state="idle" style="display:flex;flex-direction:column;align-items:center;width:100%">
+          <div class="dz-icon">📂</div>
+          <div class="dz-title">Drop file here</div>
+          <div class="dz-sub">or click to browse — max 100 MB</div>
+        </div>
+
+        <div data-dz-state="ready" style="display:none;flex-direction:column;align-items:center;width:100%">
+          <div class="dz-file">
+            <div class="dz-file-icon">📄</div>
+            <div>
+              <div class="dz-file-name"></div>
+              <div class="dz-file-size"></div>
+            </div>
+          </div>
+          <div class="dz-dur-wrap">
+            <div class="dz-dur-label">lock duration</div>
+            <div class="dz-dur-grid">
+              <div class="dz-dur" data-dur="1h">1h</div>
+              <div class="dz-dur" data-dur="2h">2h</div>
+              <div class="dz-dur" data-dur="6h">6h</div>
+              <div class="dz-dur" data-dur="12h">12h</div>
+              <div class="dz-dur" data-dur="1d">1d</div>
+              <div class="dz-dur" data-dur="3d">3d</div>
+              <div class="dz-dur" data-dur="1week">1week</div>
+              <div class="dz-dur" data-dur="2weeks">2weeks</div>
+              <div class="dz-dur active" data-dur="1month">1month ★</div>
+              <div class="dz-dur" data-dur="3months">3months</div>
+              <div class="dz-dur" data-dur="6months">6months</div>
+              <div class="dz-dur" data-dur="1year">1year</div>
+            </div>
+          </div>
+          <button class="dz-btn dz-btn-enc">🔒&nbsp; Encrypt file</button>
+        </div>
+
+        <div data-dz-state="processing" style="display:none;flex-direction:column;align-items:center;width:100%">
+          <div class="dz-loader"><div class="dz-loader-bar dz-loader-enc"></div></div>
+          <div class="dz-title">Encrypting…</div>
+          <div class="dz-sub">sending to server</div>
+        </div>
+
+        <div data-dz-state="done" style="display:none;flex-direction:column;align-items:center;width:100%">
+          <div class="dz-done-badge dz-done-badge-enc">✓</div>
+          <div class="dz-done-title">Encrypted!</div>
+          <div class="dz-done-detail"></div>
+          <button class="dz-reset">↻ encrypt another</button>
+        </div>
+
+        <div data-dz-state="error" style="display:none;flex-direction:column;align-items:center;width:100%">
+          <div class="dz-err-badge">✗</div>
+          <div class="dz-err-text"></div>
+          <div class="dz-err-detail"></div>
+          <button class="dz-reset">↻ try again</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
 
   <!-- CURL -->
   <div class="tag tag-enc">curl — quickest way</div>
@@ -496,6 +797,68 @@
     <div class="banner-icon">🔑</div>
     <p>Send your <strong>.tlp file</strong> here. If the unlock date has passed the server releases the key and returns your original file. If not — you get a <strong>countdown</strong> and HTTP <code style="font-size:11px;background:rgba(0,0,0,.07);padding:1px 4px">423 Locked</code>.</p>
   </div>
+
+  <!-- DRAG & DROP -->
+  <div class="tag tag-dec">web — drag & drop</div>
+  <h2>Decrypt in browser</h2>
+  <p style="margin-bottom:14px">Drop your <code style="font-family:'Space Mono',monospace;font-size:11px;background:#f0f0dc;border:1px solid #ccc;padding:1px 4px">.tlp</code> file. If unlocked — download your original file.</p>
+
+  <div class="card" id="dz-dec-card">
+    <div class="card-hd"><div class="dot dot-dec"></div>drop .tlp to decrypt</div>
+    <div class="card-bd">
+      <div class="dz-area dz-area-dec">
+        <input type="file" accept=".tlp">
+
+        <div data-dz-state="idle" style="display:flex;flex-direction:column;align-items:center;width:100%">
+          <div class="dz-icon">🔓</div>
+          <div class="dz-title">Drop .tlp file here</div>
+          <div class="dz-sub">or click to browse</div>
+        </div>
+
+        <div data-dz-state="ready" style="display:none;flex-direction:column;align-items:center;width:100%">
+          <div class="dz-file">
+            <div class="dz-file-icon">📄</div>
+            <div>
+              <div class="dz-file-name"></div>
+              <div class="dz-file-size"></div>
+            </div>
+          </div>
+          <button class="dz-btn dz-btn-dec">🔓&nbsp; Decrypt file</button>
+        </div>
+
+        <div data-dz-state="processing" style="display:none;flex-direction:column;align-items:center;width:100%">
+          <div class="dz-loader"><div class="dz-loader-bar dz-loader-dec"></div></div>
+          <div class="dz-title">Decrypting…</div>
+          <div class="dz-sub">checking with server</div>
+        </div>
+
+        <div data-dz-state="done" style="display:none;flex-direction:column;align-items:center;width:100%">
+          <div class="dz-done-badge dz-done-badge-dec">✓</div>
+          <div class="dz-done-title">Decrypted!</div>
+          <div class="dz-done-detail"></div>
+          <button class="dz-reset">↻ decrypt another</button>
+        </div>
+
+        <div data-dz-state="locked" style="display:none;flex-direction:column;align-items:center;width:100%">
+          <div class="dz-locked-icon">🔒</div>
+          <div class="dz-locked-title">Still locked</div>
+          <div class="dz-locked-msg"></div>
+          <div class="dz-locked-time"></div>
+          <div class="dz-locked-date"></div>
+          <button class="dz-reset">↻ try another file</button>
+        </div>
+
+        <div data-dz-state="error" style="display:none;flex-direction:column;align-items:center;width:100%">
+          <div class="dz-err-badge">✗</div>
+          <div class="dz-err-text"></div>
+          <div class="dz-err-detail"></div>
+          <button class="dz-reset">↻ try again</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
 
   <!-- CURL -->
   <div class="tag tag-dec">curl — quickest way</div>
@@ -657,6 +1020,218 @@
       setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('ok'); }, 2000);
     });
   }
+
+  // ── Drag & Drop ──────────────────────────────────────────────
+  (function () {
+    var MAX_BYTES = 100 * 1024 * 1024;
+
+    function fmtSize(b) {
+      if (b < 1024) return b + ' B';
+      if (b < 1048576) return (b / 1024).toFixed(1) + ' KB';
+      return (b / 1048576).toFixed(1) + ' MB';
+    }
+
+    function esc(s) {
+      var d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    function triggerDownload(blob, name) {
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(function () { URL.revokeObjectURL(url); }, 3000);
+    }
+
+    function initDropzone(opt) {
+      var root  = document.getElementById(opt.id);
+      if (!root) return;
+      var area  = root.querySelector('.dz-area');
+      var input = area.querySelector('input[type="file"]');
+      var stateEls = {};
+      root.querySelectorAll('[data-dz-state]').forEach(function (el) {
+        stateEls[el.dataset.dzState] = el;
+      });
+
+      var file = null;
+      var duration = '1month';
+
+      function show(state) {
+        Object.keys(stateEls).forEach(function (k) {
+          stateEls[k].style.display = (k === state) ? 'flex' : 'none';
+        });
+      }
+
+      function reset() {
+        file = null;
+        input.value = '';
+        // reset duration chips to default
+        root.querySelectorAll('.dz-dur').forEach(function (c) {
+          c.classList.toggle('active', c.dataset.dur === '1month');
+        });
+        duration = '1month';
+        show('idle');
+      }
+
+      function setFile(f) {
+        // For decrypt dropzones, only allow .tlp vault files
+        if (typeof opt !== 'undefined' && opt && opt.type === 'dec') {
+          var name = (f && typeof f.name === 'string') ? f.name.toLowerCase() : '';
+          if (!name.endsWith('.tlp')) {
+            return showError(
+              'Invalid file type',
+              'Please select a .tlp vault file to decrypt.'
+            );
+          }
+        }
+        if (f.size > MAX_BYTES) {
+          return showError('File too large', 'Max 100 MB — yours is ' + fmtSize(f.size));
+        }
+        file = f;
+        root.querySelector('.dz-file-name').textContent = f.name;
+        root.querySelector('.dz-file-size').textContent = fmtSize(f.size);
+        show('ready');
+      }
+
+      function showError(title, detail) {
+        root.querySelector('.dz-err-text').textContent = title;
+        root.querySelector('.dz-err-detail').textContent = detail || '';
+        show('error');
+      }
+
+      // Click to browse (only in idle state)
+      area.addEventListener('click', function (e) {
+        if (e.target.closest('button') || e.target.closest('.dz-dur')) return;
+        if (stateEls['idle'] && stateEls['idle'].style.display !== 'none') input.click();
+      });
+
+      input.addEventListener('change', function () {
+        if (input.files[0]) setFile(input.files[0]);
+      });
+
+      // Drag events
+      var dragCount = 0;
+      area.addEventListener('dragenter', function (e) {
+        e.preventDefault(); dragCount++;
+        area.classList.add(opt.hoverCls);
+      });
+      area.addEventListener('dragover', function (e) { e.preventDefault(); });
+      area.addEventListener('dragleave', function (e) {
+        e.preventDefault();
+        if (--dragCount <= 0) { dragCount = 0; area.classList.remove(opt.hoverCls); }
+      });
+      area.addEventListener('drop', function (e) {
+        e.preventDefault(); dragCount = 0;
+        area.classList.remove(opt.hoverCls);
+        if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]);
+      });
+
+      // Duration chips (encrypt only)
+      root.querySelectorAll('.dz-dur').forEach(function (chip) {
+        chip.addEventListener('click', function (e) {
+          e.stopPropagation();
+          root.querySelectorAll('.dz-dur').forEach(function (c) { c.classList.remove('active'); });
+          chip.classList.add('active');
+          duration = chip.dataset.dur;
+        });
+      });
+
+      // Action button
+      root.querySelector('.dz-btn').addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (!file) return;
+        show('processing');
+
+        if (opt.type === 'enc') {
+          doEncrypt();
+        } else {
+          doDecrypt();
+        }
+      });
+
+      function doEncrypt() {
+        fetch('/en/' + encodeURIComponent(duration), {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/octet-stream', 'X-Filename': file.name },
+          body: file
+        })
+        .then(function (resp) {
+          if (!resp.ok) {
+            return resp.json().catch(function () { return {}; }).then(function (err) {
+              showError(err.error || 'Server error ' + resp.status);
+              return null;
+            });
+          }
+          var unlockISO = resp.headers.get('X-Unlock-ISO') || '';
+          var dur = resp.headers.get('X-Duration') || duration;
+          return resp.blob().then(function (blob) {
+            triggerDownload(blob, file.name + '.tlp');
+            root.querySelector('.dz-done-detail').innerHTML =
+              '<strong>' + esc(file.name + '.tlp') + '</strong> downloaded<br>' +
+              'unlocks at: ' + esc(unlockISO) + '<br>' +
+              'duration: ' + esc(dur);
+            show('done');
+          });
+        })
+        .catch(function (err) {
+          showError('Request failed', err.message || 'Network error — is the server running?');
+        });
+      }
+
+      function doDecrypt() {
+        fetch('/de', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/octet-stream' },
+          body: file
+        })
+        .then(function (resp) {
+          if (resp.status === 423) {
+            return resp.json().then(function (data) {
+              root.querySelector('.dz-locked-msg').textContent = data.message || 'Still locked';
+              root.querySelector('.dz-locked-time').textContent = data.remaining_human || '—';
+              root.querySelector('.dz-locked-date').textContent =
+                data.unlock_iso ? 'unlocks: ' + data.unlock_iso : '';
+              show('locked');
+            });
+          }
+          if (!resp.ok) {
+            return resp.json().catch(function () { return {}; }).then(function (err) {
+              showError(err.error || 'Server error ' + resp.status, err.message);
+            });
+          }
+          var disp = resp.headers.get('Content-Disposition') || '';
+          var outName = file.name.endsWith('.tlp') ? file.name.slice(0, -4) : 'decrypted_file';
+          var m = disp.match(/filename="?([^"\n;]+)"?/);
+          if (m) outName = m[1];
+
+          return resp.blob().then(function (blob) {
+            triggerDownload(blob, outName);
+            root.querySelector('.dz-done-detail').innerHTML =
+              '<strong>' + esc(outName) + '</strong> downloaded';
+            show('done');
+          });
+        })
+        .catch(function (err) {
+          showError('Request failed', err.message || 'Network error — is the server running?');
+        });
+      }
+
+      // Reset buttons
+      root.querySelectorAll('.dz-reset').forEach(function (btn) {
+        btn.addEventListener('click', function (e) { e.stopPropagation(); reset(); });
+      });
+
+      show('idle');
+    }
+
+    initDropzone({ id: 'dz-enc-card', type: 'enc', hoverCls: 'dragover-enc' });
+    initDropzone({ id: 'dz-dec-card', type: 'dec', hoverCls: 'dragover-dec' });
+  })();
 </script>
 </body>
 </html>
